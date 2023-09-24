@@ -1,13 +1,271 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, #root, .app{
+    height: 100%;
+}
+body{
+    height: 100%;
+    background: #2B2440;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #F5F5F5;
+    line-height: 1.2;
+}
+a, button{
+    cursor: pointer;
+    text-decoration: none;
+}
+button{
+    position: relative;
+    z-index: 2;
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.125em;
+    color: rgba(245, 245, 245, 0.50);
+}
+button.active{
+    color: #F5F5F5;
+    &::before{
+        cursor: default;
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 123px;
+        transform: rotate(90deg);
+        flex-shrink: 0;
+        left: 50%;
+        bottom: -4.52em;
+        background: linear-gradient(180deg, rgba(255, 88, 95, 0.00) 0%, #FA5897 51.57%, rgba(255, 88, 95, 0.00) 100%);
+    }
+}
+input{
+    outline: none;
+    color: #F5F5F5;
+    font-weight: 600;
+    background: #2B2440;
+    border: 2px solid #FA5897;
+}
+.input{
+    padding: 1em;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    height: 3.25em;
+    width: 20em;
+    border: 2px solid #FA5897;
+    transition: border .3s;
+    &:hover{
+        transition: border .3s;
+        border: 2px solid #FF585F;
+    }
+}
+.custom-select{
+    height: 43px;
+    width: 15em;
+    position: relative;
+    z-index: 3;
+    & .react-select__control{
+        height: 100%;
+        border: 2px solid #FA5897;
+        background: #2B2440;
+        transition: border .3s;
+        border-radius: 12px;
+        &:hover{
+            transition: border .3s;
+            border: 2px solid #FF585F;
+        }
+    }
+    & .react-select__input-container, .react-select__single-value{
+        color: #F5F5F5;
+    }
+    & .react-select__option{
+        border-bottom: 2px solid #FA5897;
+        background: #2B2440 ;
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+    & .react-select__menu{
+        border: 2px solid #FA5897;
+        padding: 0 5px;
+        border-radius: 7px;
+        background: #2B2440;
+    }
+}
+.custom-select{
+    position: relative;
+}
+.container{
+    max-width: 1250px;
+    margin: 0 auto;
+    height: 100%;
+}
+h1{
+    font-size: 1.375em;
+    font-weight: 700;
+    text-align: center;
+}
+.converter-wrapper{
+    position: relative;
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    height: 100%;
+    z-index: 2;
+    &::before, &::after{
+        content: '';
+        position: absolute;
+    }
+    &::before{
+        width: 9em;
+        height: 9em;
+        right: 1em;
+        top: 24%;
+        z-index: 3;
+        background: url("./../public/bg1.png") no-repeat;
+        background-size: contain;
+    }
+    &::after{
+        z-index: 1;
+        width: 13.75em;
+        height: 13.75em;
+        left: -10em;
+        top: 38%;
+        background: url("./../public/bg2.png") no-repeat;
+        background-size: contain;
+    }
+}
+.converter{
+    position: relative;
+    z-index: 2;
+    margin-top: 1.75em;
+    padding: 2em 2.8em;
+    width: 100%;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #271D35 0%, rgba(39, 29, 53, 0.20) 100%);
+    backdrop-filter: blur(5px);
+}
+.btns{
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    column-gap: 3.37em;
+    width: 64.84%;
+    &::before{
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 664px;
+        transform: rotate(90deg);
+        flex-shrink: 0;
+        left: 50%;
+        top: -18.2em;
+        opacity: 0.2;
+        background: linear-gradient(180deg, rgba(217, 217, 217, 0.00) 12.5%, #FFF 51.57%, rgba(255, 255, 255, 0.00) 86.98%);
+    }
+}
+.content{
+    margin-top: 2.43em;
+}
+.convert-items{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.convert-item{
+    & span{
+        font-size: 13px;
+        color: #B7B7B7;
+    }
+    & input, & .custom-select{
+        margin-top: .625em;
+    }
+    & button{
+        position: relative;
+        top: .84em;
+        width: 3.25em;
+        height: 3.25em;
+        border-radius: 100%;
+        background: #2B2440;
+        display: flex;
+        align-items: center;
+        font-size: 1em;
+        justify-content: center;
+    }
+}
+.convert-dates{
+    margin-top: 1.56em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.convert-btn{
+    border-radius: 12px;
+    background: linear-gradient(97deg, #FF585F 3.28%, #FA5897 95.35%);
+    width: 8.31em;
+    height: 3.125em;
+    font-size: 1.06em;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+.dates-wrapper{
+    display: flex;
+    align-items: end;
+    column-gap: 1.5em;
+    .date{
+        margin-bottom: 5px;
+    }
+}
+.dates{
+    display: flex;
+    column-gap: 14px;
+    align-items: center;
+    .equal{
+        width: 30px;
+        height: 30px;
+        background: #2B2440;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.data-item{
+    padding: 12px;
+    border-radius: 12px;
+    background: #1E192D;
+    display: flex;
+    column-gap: 16px;
+    & p{
+        margin-top: 2px;
+        font-size: 12px;
+        color: rgba(245, 245, 245, 0.50);
+        width: 80px;
+    }
+    & span{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .amount{
+        margin-top: 6px;
+        font-size: 1.18em;
+        font-weight: 700;
+        color: #FFF;
+    }
+}
+.date{
+    width: 8em;
+    font-size: 13px;
+    font-weight: 700;
 }
