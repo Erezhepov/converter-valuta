@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Btns = () => {
+interface IBtns {
+    setActiveContent: (content: string) => void
+}
+
+const Btns: React.FC<IBtns> = ({setActiveContent}) => {
     return (
         <div className="btns">
-            <button className={'active'}>Convert</button>
-            <button>Single</button>
+            <button onClick={() => setActiveContent('main')} className={'active'}>Convert</button>
+            <button onClick={() => setActiveContent('history')}>History</button>
         </div>
     );
 };

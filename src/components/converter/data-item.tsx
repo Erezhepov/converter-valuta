@@ -17,7 +17,7 @@ const DataItem: React.FC<IPropsDataItem> = ({currency, sum, float, supported_cod
                 </div>
             </div>
             <p>
-                {supported_codes.find(c => c[0] === currency)?.[1]}
+                {supported_codes?.find(c => c[0] === currency)?.[1]}
             </p>
         </div>
     );

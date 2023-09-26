@@ -18,6 +18,13 @@ export interface IState {
     amount: number
     time_last_update: string | null
     supported_codes: []
+    history: IHistory
+}
+
+export interface IHistory {
+    year: number
+    month: number
+    day: number
 }
 
 export interface IResponseData {

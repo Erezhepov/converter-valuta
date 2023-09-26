@@ -4,6 +4,7 @@ import {changeAmount} from "../store/converter.slice";
 import ConvertSelectFromItem from "./convert-select-from-item";
 import ConvertSelectToItem from "./convert-select-to-item";
 import {IOption} from "../types/type";
+import InputItem from "./input-item";
 
 let initialOptions: IOption[] = [
     { value: 'USD', label: 'USD' },
@@ -17,7 +18,6 @@ let options: IOption[] = [
 
 const ConvertItems = () => {
     const {amount, conversion_rates} = useAppSelector(state => state.converterState)
-    const [amountCount, setAmountCount] = useState(amount)
     const [isSwap, setIsSwap] = useState(0)
     const dispatch = useAppDispatch()
     useEffect(() => {
@@ -31,24 +31,16 @@ const ConvertItems = () => {
             }
         }
     }, [conversion_rates, initialOptions, options]);
-    const changeAmountHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAmountCount(+e.target.value)
-    }
-    const sendAmount = () => dispatch(changeAmount(amountCount))
+    const sendAmount = (amountCount: number) => dispatch(changeAmount(amountCount))
     const swapCodes = () => {
         setIsSwap(prevState => prevState + 1)
     }
     return (
         <div className="convert-items">
-            <div className="convert-item">
-                <label htmlFor="">
-                    <span>Amount</span>
-                    <input onBlur={sendAmount} onChange={changeAmountHandler} type={'number'} value={amountCount} className={'input'} />
-                </label>
-            </div>
+            <InputItem initialValue={amount} title={'Amount'} sendValue={sendAmount} />
             <ConvertSelectFromItem isSwap={isSwap} initialOptions={initialOptions} options={options} />
             <div className="convert-item">
-                <button onClick={swapCodes}>
+                <button className={'swap-btn'} onClick={swapCodes}>
                     <img src="converte.svg" alt=""/>
                 </button>
             </div>

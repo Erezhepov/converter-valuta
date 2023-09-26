@@ -60,11 +60,18 @@ input{
     height: 3.25em;
     width: 20em;
     border: 2px solid #FA5897;
-    transition: border .3s;
-    &:hover{
-        transition: border .3s;
+    transition: all .25s;
+    &:hover, &:focus{
+        transition: all .25s;
         border: 2px solid #FF585F;
+        box-shadow: 0 0 5pt 1pt #FF585F !important;
     }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
 }
 .custom-select{
     height: 43px;
@@ -75,11 +82,22 @@ input{
         height: 100%;
         border: 2px solid #FA5897;
         background: #2B2440;
-        transition: border .3s;
         border-radius: 12px;
+        box-shadow: none;
+        transition: all .25s;
         &:hover{
-            transition: border .3s;
+            transition: all .25s;
             border: 2px solid #FF585F;
+            box-shadow: 0 0 5pt 1pt #FF585F !important;
+            .css-1xc3v61-indicatorContainer{
+                color: #FF585F;
+            }
+        }
+        .css-1xc3v61-indicatorContainer{
+            color: #FFFFFF;
+        }
+        .css-15lsz6c-indicatorContainer{
+            color: #FF585F;
         }
     }
     & .react-select__input-container, .react-select__single-value{
@@ -87,7 +105,8 @@ input{
     }
     & .react-select__option{
         border-bottom: 2px solid #FA5897;
-        background: #2B2440 ;
+        background: #2B2440;
+        cursor: pointer;
         &:last-child{
             border-bottom: none;
         }
@@ -97,6 +116,13 @@ input{
         padding: 0 5px;
         border-radius: 7px;
         background: #2B2440;
+    }
+}
+.swap-btn{
+    transition: box-shadow .25s;
+    &:hover{
+        box-shadow: 0 0 5pt 1pt #FF585F;
+        transition: box-shadow .25s;
     }
 }
 .custom-select{
@@ -268,4 +294,23 @@ h1{
     width: 8em;
     font-size: 13px;
     font-weight: 700;
+}
+.history-items{
+    display: flex;
+    column-gap: 1em;
+    justify-content: space-between;
+    .custom-select{
+        width: 145px;
+    }
+}
+.history-selects{
+    display: flex;
+    column-gap: 1.25em;
+}
+.history-dates{
+    display: flex;
+    column-gap: 1em;
+    & input{
+        width: 166px;
+    }
 }
