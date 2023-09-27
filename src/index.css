@@ -30,9 +30,9 @@ button{
     font-size: 1.125em;
     color: rgba(245, 245, 245, 0.50);
 }
-button.active{
-    color: #F5F5F5;
+button.default-btn{
     &::before{
+        transition: all .3s;
         cursor: default;
         content: '';
         position: absolute;
@@ -43,6 +43,14 @@ button.active{
         left: 50%;
         bottom: -4.52em;
         background: linear-gradient(180deg, rgba(255, 88, 95, 0.00) 0%, #FA5897 51.57%, rgba(255, 88, 95, 0.00) 100%);
+        opacity: 0;
+    }
+}
+button.active{
+    color: #F5F5F5;
+    transition: all .3s;
+    &::before{
+        opacity: 1;
     }
 }
 input{

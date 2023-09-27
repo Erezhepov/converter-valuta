@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../api/api";
-import {IResponseData, ISupportedCodes} from "../types/type";
+import {IConversionRates, IResponseData, IResponseHistoricalData, ISupportedCodes} from "../types/type";
 import axios from "axios";
 
 
@@ -34,12 +34,11 @@ export interface IHistoricalDataArguments {
     day: number
 }
 
-export const getHistoricalData = createAsyncThunk<void, IHistoricalDataArguments, {rejectValue: string}>('converter/getHistoricalData',
+export const getHistoricalData = createAsyncThunk<IResponseHistoricalData, IHistoricalDataArguments, {rejectValue: string}>('converter/getHistoricalData',
     async ({base_code, year, month, day}, {rejectWithValue}) => {
     try {
             const response = await instance.get(`history/${base_code}/${year}/${month}/${day}`)
             const data = response.data
-            debugger
             return data
         }catch (e){
             rejectWithValue('Ошибка при доставнии исторических данных')

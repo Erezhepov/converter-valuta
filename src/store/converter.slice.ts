@@ -11,6 +11,7 @@ const initialState: IState = {
     converted_code: 'KZT',
     amount: 1,
     conversion_rates: {},
+    conversion_historical_rates: {},
     time_last_update: null,
     supported_codes: [],
     history: {
@@ -25,7 +26,6 @@ export const converterSlice = createSlice({
     initialState,
     reducers: {
         convertMoney: (state, {payload} : PayloadAction<IConvertMoney>) => {
-            // @ts-ignore
             let count = state.conversion_rates?.[payload.converted_code]
             state.converted_data = payload.amount * count
         },
@@ -81,7 +81,12 @@ export const converterSlice = createSlice({
             .addCase(getHistoricalData.fulfilled, (state, {payload}) => {
                 state.isLoading = false
                 state.error = null
-                // state.history =
+                state.history = {
+                    day: payload.day,
+                    month: payload.month,
+                    year: payload.year
+                }
+                state.conversion_historical_rates = payload.conversion_rates
             })
             .addCase(getHistoricalData.rejected, (state, {payload}) => {
                 state.isLoading = false

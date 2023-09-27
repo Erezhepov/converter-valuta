@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
-import ConvertInfo from "./convert-info";
-import {getHistoricalData} from "../store/converter.thunk";
 import {IHistory} from "../types/type";
+import {convertMoney} from "../store/converter.slice";
+import {getHistoricalData} from "../store/converter.thunk";
+import ConvertHistoricalInfo from "./convert-historical-info";
 
 
 
@@ -16,13 +17,15 @@ const ConvertHistoricalDates: React.FC<IHistory> = ({day, year, month}) => {
     }, [amount, base_code, converted_code]);
 
     const convert = () => {
-        dispatch(getHistoricalData({base_code, year, month, day}))
         debugger
-        setShowData(true)
+        dispatch(getHistoricalData({base_code, year, month, day})).then(() => {
+            dispatch(convertMoney({amount, base_code, converted_code }))
+            setShowData(true)
+        })
     }
     return (
         <div className="convert-dates">
-            <ConvertInfo showData={showData} />
+            <ConvertHistoricalInfo showData={showData} />
             <button onClick={convert} className={'convert-btn'}>Convert</button>
         </div>
     );

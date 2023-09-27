@@ -12,6 +12,7 @@ export interface IState {
     error: string | null
     result: string | null
     conversion_rates: any | null
+    conversion_historical_rates: any | null
     converted_data: number | null
     base_code: string
     converted_code: string
@@ -45,4 +46,11 @@ export interface ISelectItem {
 export interface ISupportedCodes{
     success: string
     supported_codes: []
+}
+
+export interface IResponseHistoricalData {
+    year: number
+    month: number
+    day: number
+    conversion_rates: IConversionRates
 }

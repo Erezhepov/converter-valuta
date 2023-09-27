@@ -4,7 +4,6 @@ import ConvertSelectToItem from "./convert-select-to-item";
 import {IHistory, IOption} from "../types/type";
 import {useAppSelector} from "../hooks/hooks";
 import InputItem from "./input-item";
-import ConvertDates from "./convert-dates";
 import ConvertHistoricalDates from "./convert-historical-dates";
 
 let initialOptions: IOption[] = [
@@ -19,9 +18,9 @@ let options: IOption[] = [
 
 const HistoryContent: React.FC = () => {
     const [isSwap, setIsSwap] = useState(0)
-    const [history, setHistory] = useState<IHistory>({day: 1, month: 1, year: 2023})
-    const {conversion_rates} = useAppSelector(state => state.converterState)
     const {year, month, day} = useAppSelector(state => state.converterState.history)
+    const [history, setHistory] = useState<IHistory>({day, month, year})
+    const {conversion_rates} = useAppSelector(state => state.converterState)
     useEffect(() => {
         if (Object.keys(conversion_rates).length > 0){
             let newArr: string[] = []
