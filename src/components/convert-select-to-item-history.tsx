@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Select, {SingleValue} from "react-select";
-import {IOption, ISelectItem} from "../types/type";
-import {changeConvertedCode} from "../store/converter.slice";
+import {IOption, ISelectHistoryItem} from "../types/type";
+import {changeHistoryConvertedCode} from "../store/converter.slice";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {getStyles} from "../helpers/style";
 
 
-const ConvertSelectToItem: React.FC<ISelectItem> = ({options, initialOptions, isSwap}) => {
-    const {base_code, converted_code} = useAppSelector(state => state.converterState)
+const ConvertSelectToItemHistory: React.FC<ISelectHistoryItem> = ({options, initialOptions}) => {
+    const {converted_code_history} = useAppSelector(state => state.converterState)
     const dispatch = useAppDispatch()
-    const [selectedOptionTo, setSelectedOptionTo] = useState(converted_code);
+    const [selectedOptionTo, setSelectedOptionTo] = useState(converted_code_history);
     const getValueTo = () => {
         if (!options.length){
             return selectedOptionTo ? initialOptions.find(c => c.value === selectedOptionTo) : ''
@@ -20,14 +20,8 @@ const ConvertSelectToItem: React.FC<ISelectItem> = ({options, initialOptions, is
     const onChangeTo = (e: SingleValue<string | IOption>) => {
         const value = (e as IOption).value
         setSelectedOptionTo(value)
-        dispatch(changeConvertedCode(value))
+        dispatch(changeHistoryConvertedCode(value))
     }
-    useEffect(() => {
-        if(isSwap){
-            setSelectedOptionTo(base_code)
-            dispatch(changeConvertedCode(base_code))
-        }
-    }, [isSwap]);
     return (
         <div className="convert-item">
             <label htmlFor="">
@@ -40,4 +34,4 @@ const ConvertSelectToItem: React.FC<ISelectItem> = ({options, initialOptions, is
     );
 };
 
-export default ConvertSelectToItem;
+export default ConvertSelectToItemHistory;

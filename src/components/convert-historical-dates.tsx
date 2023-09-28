@@ -1,25 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {IHistory} from "../types/type";
-import {convertMoney} from "../store/converter.slice";
-import {getHistoricalData} from "../store/converter.thunk";
+import {convertHistoricalMoney} from "../store/converter.slice";
 import ConvertHistoricalInfo from "./convert-historical-info";
+import {getHistoricalData} from "../store/converter.thunk";
 
 
 
-const ConvertHistoricalDates: React.FC<IHistory> = ({day, year, month}) => {
+const ConvertHistoricalDates: React.FC<IHistory> = ({day,month,year}) => {
     const dispatch = useAppDispatch()
     const [showData, setShowData] = useState(false)
-    const {amount, base_code, converted_code} = useAppSelector(state => state.converterState)
+    const {base_code_history, converted_code_history} = useAppSelector(state => state.converterState)
 
     useEffect(() => {
         setShowData(false)
-    }, [amount, base_code, converted_code]);
+    }, [base_code_history, day, month, year]);
 
     const convert = () => {
-        debugger
-        dispatch(getHistoricalData({base_code, year, month, day})).then(() => {
-            dispatch(convertMoney({amount, base_code, converted_code }))
+        dispatch(getHistoricalData({base_code_history, year, month, day})).then(() => {
+            dispatch(convertHistoricalMoney({base_code_history, converted_code_history}))
             setShowData(true)
         })
     }

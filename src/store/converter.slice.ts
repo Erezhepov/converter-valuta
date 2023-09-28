@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IConvertMoney, IHistory, IState} from "../types/type";
+import {IConvertHistoricalMoney, IConvertMoney, IHistory, IState} from "../types/type";
 import {getData, getHistoricalData, supportedCodes} from "./converter.thunk";
 
 const initialState: IState = {
@@ -9,6 +9,8 @@ const initialState: IState = {
     converted_data: null,
     base_code: 'USD',
     converted_code: 'KZT',
+    base_code_history: 'USD',
+    converted_code_history: 'KZT',
     amount: 1,
     conversion_rates: {},
     conversion_historical_rates: {},
@@ -29,6 +31,10 @@ export const converterSlice = createSlice({
             let count = state.conversion_rates?.[payload.converted_code]
             state.converted_data = payload.amount * count
         },
+        convertHistoricalMoney: (state, {payload} : PayloadAction<IConvertHistoricalMoney>) => {
+            let count = state.conversion_rates?.[payload.converted_code_history]
+            state.converted_data = count
+        },
         changeBaseCode: (state, {payload}: PayloadAction<string>) => {
           state.base_code = payload
         },
@@ -40,6 +46,12 @@ export const converterSlice = createSlice({
         },
         setHistory: (state, {payload}: PayloadAction<IHistory>) => {
             state.history = payload
+        },
+        changeHistoryBaseCode: (state, {payload}: PayloadAction<string>) => {
+            state.base_code_history = payload
+        },
+        changeHistoryConvertedCode: (state, {payload}: PayloadAction<string>) => {
+            state.converted_code_history = payload
         },
 
     },
@@ -78,6 +90,10 @@ export const converterSlice = createSlice({
                 state.isLoading = true
                 state.error = null
             })
+            .addCase(getHistoricalData.rejected, (state, {payload}) => {
+                state.isLoading = false
+                state.error = payload ? payload : null
+            })
             .addCase(getHistoricalData.fulfilled, (state, {payload}) => {
                 state.isLoading = false
                 state.error = null
@@ -88,15 +104,12 @@ export const converterSlice = createSlice({
                 }
                 state.conversion_historical_rates = payload.conversion_rates
             })
-            .addCase(getHistoricalData.rejected, (state, {payload}) => {
-                state.isLoading = false
-                state.error = payload ? payload : null
-            })
     }
 })
 
 export default converterSlice.reducer
 export const {convertMoney, changeConvertedCode,
     changeBaseCode, changeAmount,
-    setHistory
+    setHistory, changeHistoryBaseCode, changeHistoryConvertedCode,
+    convertHistoricalMoney
 } = converterSlice.actions

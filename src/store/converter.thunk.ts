@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../api/api";
-import {IConversionRates, IResponseData, IResponseHistoricalData, ISupportedCodes} from "../types/type";
+import {IConversionRates, IError, IResponseData, IResponseHistoricalData, ISupportedCodes} from "../types/type";
 import axios from "axios";
 
 
@@ -11,7 +11,7 @@ export const getData = createAsyncThunk<IResponseData, string, { rejectValue: st
         const data = response.data
         return data
     }catch (e){
-        rejectWithValue('Ошибка при доставании данных')
+        return rejectWithValue('Ошибка при доставании данных')
     }
 })
 
@@ -23,25 +23,26 @@ export const supportedCodes = createAsyncThunk<ISupportedCodes, void, {rejectVal
         const data = response.data
         return data
     }catch (e){
-        rejectWithValue('Ошибка при доставании вспомогающего кода')
+        return rejectWithValue('Ошибка при доставании вспомогающего кода')
     }
     })
 
 export interface IHistoricalDataArguments {
-    base_code: string
+    base_code_history: string
     year: number
     month: number
     day: number
 }
 
 export const getHistoricalData = createAsyncThunk<IResponseHistoricalData, IHistoricalDataArguments, {rejectValue: string}>('converter/getHistoricalData',
-    async ({base_code, year, month, day}, {rejectWithValue}) => {
-    try {
-            const response = await instance.get(`history/${base_code}/${year}/${month}/${day}`)
+    async ({base_code_history, year, month, day}, {rejectWithValue}) => {
+        try {
+            const response = await instance.get(`history/${base_code_history}/${year}/${month}/${day}`)
             const data = response.data
             return data
-        }catch (e){
-            rejectWithValue('Ошибка при доставнии исторических данных')
+        // @ts-ignore
+        }catch (e: IError){
+            return rejectWithValue(e.response.data["error-type"])
         }
 
     })

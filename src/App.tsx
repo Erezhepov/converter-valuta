@@ -2,10 +2,11 @@ import Converter from "./components/converter/Converter"
 import {useEffect} from "react";
 import {getData, supportedCodes} from "./store/converter.thunk";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
+import Error from "./components/Error";
 
 const App = () => {
     const dispatch = useAppDispatch()
-    const base_code = useAppSelector(state => state.converterState.base_code)
+    const {base_code, error} = useAppSelector(state => state.converterState)
     useEffect(() => {
         dispatch(supportedCodes())
     }, []);
@@ -15,6 +16,7 @@ const App = () => {
   return (
       <div className={'app'}>
         <div className="container">
+            {error && <Error text={error} />}
             <Converter />
         </div>
       </div>

@@ -1,18 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Select, {SingleValue} from "react-select";
-import {IOption, ISelectItem} from "../types/type";
-import {changeBaseCode} from "../store/converter.slice";
-import {useAppDispatch, useAppSelector} from "../hooks/hooks";
+import {IOption, ISelectHistoryItem} from "../types/type";
+import {changeHistoryBaseCode} from "../store/converter.slice";
+import {useAppDispatch} from "../hooks/hooks";
 import {getStyles} from "../helpers/style";
 
-const ConvertSelectFromItem: React.FC<ISelectItem> = ({options, initialOptions, isSwap}) => {
-    const {base_code, converted_code} = useAppSelector(state => state.converterState)
+const ConvertSelectFromItemHistory: React.FC<ISelectHistoryItem> = ({options, initialOptions}) => {
     const dispatch = useAppDispatch()
-    const [selectedOptionFrom, setSelectedOptionFrom] = useState(base_code);
+    const [selectedOptionFrom, setSelectedOptionFrom] = useState('USD');
     const onChangeFrom = (e: SingleValue<string | IOption>) => {
         const value = (e as IOption).value
         setSelectedOptionFrom(value)
-        dispatch(changeBaseCode(value))
+        dispatch(changeHistoryBaseCode(value))
 
     }
     const getValueFrom = () => {
@@ -21,13 +20,6 @@ const ConvertSelectFromItem: React.FC<ISelectItem> = ({options, initialOptions, 
         }
         return selectedOptionFrom ? options.find(c => c.value === selectedOptionFrom) : ''
     }
-    useEffect(() => {
-        if(isSwap){
-            setSelectedOptionFrom(converted_code)
-            dispatch(changeBaseCode(converted_code))
-        }
-    }, [isSwap]);
-
     return (
         <div className="convert-item">
             <label htmlFor="">
@@ -40,4 +32,4 @@ const ConvertSelectFromItem: React.FC<ISelectItem> = ({options, initialOptions, 
     );
 };
 
-export default ConvertSelectFromItem;
+export default ConvertSelectFromItemHistory;

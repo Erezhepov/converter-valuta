@@ -16,6 +16,8 @@ export interface IState {
     converted_data: number | null
     base_code: string
     converted_code: string
+    base_code_history: string,
+    converted_code_history: string,
     amount: number
     time_last_update: string | null
     supported_codes: []
@@ -38,10 +40,18 @@ export interface IConvertMoney {
     base_code: string
     converted_code: string
 }
+export interface IConvertHistoricalMoney {
+    base_code_history: string
+    converted_code_history: string
+}
 export interface ISelectItem {
     options: IOption[]
     initialOptions: IOption[]
     isSwap: number
+}
+export interface ISelectHistoryItem {
+    options: IOption[]
+    initialOptions: IOption[]
 }
 export interface ISupportedCodes{
     success: string
@@ -53,4 +63,14 @@ export interface IResponseHistoricalData {
     month: number
     day: number
     conversion_rates: IConversionRates
+}
+
+export interface IErrorData{
+    'error-type': string
+}
+
+export interface IError {
+    response: {
+        data: IErrorData
+    }
 }
