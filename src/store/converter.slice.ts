@@ -5,6 +5,7 @@ import {getData, getHistoricalData, supportedCodes} from "./converter.thunk";
 const initialState: IState = {
     isLoading: false,
     error: null,
+    error_history: null,
     result: '',
     converted_data: null,
     base_code: 'USD',
@@ -79,7 +80,6 @@ export const converterSlice = createSlice({
             })
             .addCase(supportedCodes.fulfilled, (state, {payload}) => {
                 state.isLoading = false
-                state.error = null
                 state.supported_codes = payload.supported_codes
             })
             .addCase(supportedCodes.rejected, (state, {payload}) => {
@@ -88,15 +88,15 @@ export const converterSlice = createSlice({
             })
             .addCase(getHistoricalData.pending, state => {
                 state.isLoading = true
-                state.error = null
+                state.error_history = null
             })
             .addCase(getHistoricalData.rejected, (state, {payload}) => {
                 state.isLoading = false
-                state.error = payload ? payload : null
+                state.error_history = payload ? payload : null
             })
             .addCase(getHistoricalData.fulfilled, (state, {payload}) => {
                 state.isLoading = false
-                state.error = null
+                state.error_history = null
                 state.history = {
                     day: payload.day,
                     month: payload.month,

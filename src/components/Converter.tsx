@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import Buttons from "../buttons";
-import ConvertItems from "../convert-items";
-import ConvertDates from "../convert-dates";
-import HistoryContent from "../history-content";
+import Buttons from "./buttons";
+import ConvertItems from "./convert-items";
+import ConvertDates from "./convert-dates";
+import HistoryContent from "./history-content";
 
 
 

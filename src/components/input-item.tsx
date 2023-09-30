@@ -4,9 +4,10 @@ interface IInputItem {
     title: string
     initialValue: number
     sendValue: (value: number) => void
+    maxValue: number
 }
 
-const InputItem: React.FC<IInputItem> = ({title, sendValue, initialValue}) => {
+const InputItem: React.FC<IInputItem> = ({title, sendValue, initialValue, maxValue}) => {
     const [value, setValue] = useState<number>(initialValue || 1)
     const changeValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(+e.target.value)
@@ -15,7 +16,7 @@ const InputItem: React.FC<IInputItem> = ({title, sendValue, initialValue}) => {
         <div className="convert-item">
             <label htmlFor="">
                 <span>{title}</span>
-                <input onBlur={() => sendValue(value)} onChange={changeValueHandler} type={'number'} value={value} className={'input'} />
+                <input min={1} max={maxValue} inputMode={"numeric"} onBlur={() => sendValue(value)} onChange={changeValueHandler} type={'number'} value={value} className={'input'} />
             </label>
         </div>
     );

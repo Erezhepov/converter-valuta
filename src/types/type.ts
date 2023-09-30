@@ -10,6 +10,7 @@ export interface IConversionRates {
 export interface IState {
     isLoading: boolean
     error: string | null
+    error_history: string | null
     result: string | null
     conversion_rates: any | null
     conversion_historical_rates: any | null

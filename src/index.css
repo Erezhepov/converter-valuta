@@ -8,6 +8,7 @@
 html, #root, .app{
     height: 100%;
 }
+html, body {width:100%; overflow-x:hidden}
 body{
     height: 100%;
     background: #2B2440;
@@ -20,6 +21,10 @@ body{
 a, button{
     cursor: pointer;
     text-decoration: none;
+}
+h1{
+    position: relative;
+    z-index: 3;
 }
 button{
     position: relative;
@@ -118,6 +123,9 @@ input::-webkit-inner-spin-button {
         &:last-child{
             border-bottom: none;
         }
+        &:active{
+            background: none;
+        }
     }
     & .react-select__menu{
         border: 2px solid #FA5897;
@@ -140,6 +148,7 @@ input::-webkit-inner-spin-button {
     max-width: 1250px;
     margin: 0 auto;
     height: 100%;
+    width: 100%;
 }
 h1{
     font-size: 1.375em;
@@ -164,7 +173,7 @@ h1{
         width: 9em;
         height: 9em;
         right: 1em;
-        top: 24%;
+        top: 11em;
         z-index: 3;
         background: url("./../public/bg1.png") no-repeat;
         background-size: contain;
@@ -243,6 +252,7 @@ h1{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 4.1em;
 }
 .convert-btn{
     border-radius: 12px;
@@ -320,5 +330,221 @@ h1{
     column-gap: 1em;
     & input{
         width: 166px;
+    }
+}
+.error-data{
+    position: absolute;
+    top: 2em;
+    width: 100%;
+    left: 0;
+    .container{
+        max-width: 1024px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1em;
+    }
+    & p{
+        padding: 1em;
+        border: 1px solid #FF585F;
+        border-radius: 7px;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 1200px) {
+    .converter-wrapper{
+        max-width: 900px;
+    }
+    .input{
+        width: 14em;
+    }
+    .history-dates input{
+        width: 130px;
+    }
+    .converter-wrapper::before{
+        top: 11em;
+    }
+}
+@media (max-width: 964px) {
+    body{
+        font-size: 15px;
+    }
+    .converter-wrapper{
+        max-width: 700px;
+    }
+    .input{
+        width: 10em;
+        height: 2.8em;
+    }
+    .custom-select{
+        width: 12em;
+        height: 2.8em;
+    }
+    .converter-wrapper::before{
+        top: 5em;
+    }
+    .history-dates input{
+        width: 100px;
+        height: 2.8em;
+    }
+    .converter{
+        padding: 1.4em;
+    }
+    .convert-btn{
+        width: 7.31em;
+        height: 2.8em;
+    }
+    .dates{
+        column-gap: 7px;
+    }
+    .dates-wrapper{
+        column-gap: 12px;
+    }
+    .data-item .amount{
+        font-size: 1.1em;
+    }
+    .date{
+        font-size: 12px;
+    }
+    .btns::before{
+        top: -19.9em;
+    }
+}
+
+@media (max-width: 768px){
+    .converter-wrapper{
+        max-width: 100%;
+        width: 100%;
+        &::before{
+            z-index: 1;
+        }
+    }
+    .container{
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    .input{
+        width: 100%;
+        height: 36px;
+    }
+    .custom-select{
+        width: 100%;
+        height: 36px;
+    }
+    .history-items{
+        flex-wrap: wrap;
+        row-gap: 2em;
+    }
+    .data-item{
+        display: block;
+        padding: 7px;
+        .amount{
+            font-size: 1em;
+        }
+        & span{
+            font-size: 12px;
+        }
+    }
+    .convert-item button{
+        width: 2.5em;
+        height: 2.5em;
+        padding: 7px;
+        & img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .converter{
+        padding: 15px;
+    }
+    .convert-items{
+        column-gap: 15px;
+        .convert-item{
+            width: 100%;
+            &:nth-child(3){
+                width: auto;
+            }
+        }
+    }
+    .history-selects, .history-dates{
+        width: 100%;
+    }
+    .history-selects{
+        .convert-item{
+            width: 100%;
+            .custom-select{
+                width: 100%;
+            }
+        }
+    }
+    .history-dates .convert-item{
+        width: 100%;
+        & input{
+            width: 100%;
+        }
+    }
+    .convert-dates{
+        height: 6em;
+    }
+    .custom-select{
+        .react-select__menu{
+            max-height: 160px !important;
+            overflow: hidden;
+        }
+        .react-select__option{
+            padding: 6px;
+        }
+    }
+}
+
+@media (max-width: 480px){
+    .convert-items{
+        flex-wrap: wrap;
+        row-gap: 1em;
+        column-gap: 0;
+        .convert-item{
+            &:nth-child(2), &:nth-child(4){
+                width: 40%;
+            }
+            &:nth-child(3){
+                width: 10%;
+            }
+            & button{
+                width: 2em;
+                height: 2em;
+            }
+            & span{
+                font-size: 12px;
+            }
+            .custom-select {
+                margin-top: 5px;
+            }
+        }
+    }
+    .dates{
+        column-gap: 1em;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .convert-dates{
+        flex-direction: column-reverse;
+        height: auto;
+        .convert-btn{
+            width: 100%;
+        }
+    }
+    .dates-wrapper{
+        margin-top: 1.2em;
+        width: 100%;
+        display: block;
+        .date{
+            margin-top: 10px;
+            margin-left: 4px;
+        }
+    }
+    .data-item{
+        width: 100%;
     }
 }

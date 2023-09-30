@@ -36,7 +36,7 @@ const HistoryContent: React.FC = () => {
                 options.push({value: el, label: el})
             }
         }
-    }, [conversion_rates, initialOptions, options]);
+    }, [conversion_rates, options]);
     return (
         <div className={'history-content'}>
             <div className={'history-items'}>
@@ -45,9 +45,9 @@ const HistoryContent: React.FC = () => {
                     <ConvertSelectToItemHistory options={options} initialOptions={initialOptions} />
                 </div>
                 <div className={'history-dates'}>
-                    <InputItem title={'Year'} initialValue={history.year} sendValue={changeYearHandler} />
-                    <InputItem title={'Month'} initialValue={history.month} sendValue={changeMonthHandler} />
-                    <InputItem title={'Day'} initialValue={history.day} sendValue={changeDayHandler} />
+                    <InputItem maxValue={2023} title={'Year'} initialValue={history.year} sendValue={changeYearHandler} />
+                    <InputItem maxValue={12} title={'Month'} initialValue={history.month} sendValue={changeMonthHandler} />
+                    <InputItem maxValue={31} title={'Day'} initialValue={history.day} sendValue={changeDayHandler} />
                 </div>
             </div>
             <ConvertHistoricalDates day={history.day} month={history.month} year={history.year} />

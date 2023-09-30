@@ -1,13 +1,14 @@
 import React from 'react';
 import {useAppSelector} from "../hooks/hooks";
-import DataItem from "./converter/data-item";
+import DataItem from "./data-item";
 
 interface IPropsConvertInfo {
     showData: boolean
 }
 
 const ConvertInfo: React.FC<IPropsConvertInfo> = ({showData}) => {
-    const {amount, base_code, converted_code, supported_codes, converted_data, time_last_update} = useAppSelector(state => state.converterState)
+    const {amount, base_code, converted_code, supported_codes, converted_data, time_last_update, error} = useAppSelector(state => state.converterState)
+    if (error) return null
     return (
         <div style={{opacity: showData ? '1' : '0', transition: 'opacity 0.15s'}} className="dates-wrapper">
             <div className="dates">

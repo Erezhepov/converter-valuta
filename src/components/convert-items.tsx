@@ -37,7 +37,7 @@ const ConvertItems = () => {
     }
     return (
         <div className="convert-items">
-            <InputItem initialValue={amount} title={'Amount'} sendValue={sendAmount} />
+            <InputItem maxValue={999999999999} initialValue={amount} title={'Amount'} sendValue={sendAmount} />
             <ConvertSelectFromItem isSwap={isSwap} initialOptions={initialOptions} options={options} />
             <div className="convert-item">
                 <button className={'swap-btn'} onClick={swapCodes}>
