@@ -265,7 +265,7 @@ h1{
 }
 .dates-wrapper{
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     column-gap: 1.5em;
     .date{
         margin-bottom: 5px;

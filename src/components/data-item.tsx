@@ -8,7 +8,6 @@ interface IPropsDataItem {
 }
 
 const DataItem: React.FC<IPropsDataItem> = ({currency, sum, float, supported_codes}) => {
-    console.log(sum)
     return (
         <div className="data-item">
             <div>
